@@ -14,7 +14,7 @@ public class JuegoAdivinanza {
         System.out.println();
         System.out.println("Adivina el numero entre " + minNumero + " y " + maxNumero);
 
-        int numeroSecreto = (int) (Math.random() * (maxNumero - minNumero + 1)) + minNumero;
+        int numeroSecreto = generarNumeroSecreto(maxNumero, minNumero);
         int intentosRealizados = 0;
         boolean adivinado = false;
 
@@ -27,11 +27,11 @@ public class JuegoAdivinanza {
             System.out.println("Intento " + (intentosRealizados + 1) + "/" + maxIntentos + ": ");
             System.out.println("[1] Adivinar [2] Pedir Pista");
             System.out.print("Opcion: ");
-            int opt_juego = scanner.nextInt();
+            int opcionJuego = scanner.nextInt();
 
             String pistaActual = "";
 
-            if (opt_juego == 2) {
+            if (opcionJuego == 2) {
                 if (intentosRealizados >= maxIntentos - 1) {
                     System.out.println("No puedes pedir mas pistas, es tu ultimo intento.");
                     pistaActual = "Pista denegada";
@@ -55,7 +55,7 @@ public class JuegoAdivinanza {
                     }
                 }
                 continue;
-            } else if (opt_juego == 1) {
+            } else if (opcionJuego == 1) {
                 System.out.print("Tu numero: ");
                 int numeroUsuario = scanner.nextInt();
 
@@ -126,6 +126,11 @@ public class JuegoAdivinanza {
         System.out.println();
         System.out.println("Fin del juego");
         scanner.close();
+    }
+
+    private static int generarNumeroSecreto(int maxNumero, int minNumero) {
+        int numeroSecreto = (int) (Math.random() * (maxNumero - minNumero + 1)) + minNumero;
+        return numeroSecreto;
     }
 
     private static int[] elegirOpcionDificultad(int dificultad) {
