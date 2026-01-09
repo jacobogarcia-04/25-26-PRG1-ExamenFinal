@@ -4,13 +4,10 @@ public class JuegoAdivinanza {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Juego de Adivinanza - Adivina el Numero Secreto");
-
         int minNumero = 1;
         int maxNumero = 100;
         int maxIntentos = 10;
-        
-        
+
         int dificultad = mostrarMenuDificultad(scanner);
 
         if (dificultad == 1) {
@@ -144,6 +141,7 @@ public class JuegoAdivinanza {
     }
 
     private static int mostrarMenuDificultad(Scanner scanner) {
+        System.out.println("Juego de Adivinanza - Adivina el Numero Secreto");
         System.out.println();
         System.out.println("Selecciona Dificultad:");
         System.out.println("1. Facil (1-50, 10 intentos)");
