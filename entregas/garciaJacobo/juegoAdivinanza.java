@@ -4,16 +4,15 @@ public class JuegoAdivinanza {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+        int nivelDicultad_1 = 1;
+        int nivelDicultad_2 = 2;
+        int nivelDicultad_3 = 3;
         int dificultad = mostrarMenuDificultad(scanner);
-        int[] configuracion = elegirOpcionDificultad(dificultad);
+        int[] configuracion = elegirOpcionDificultad(dificultad, nivelDicultad_1, nivelDicultad_2, nivelDicultad_3);
 
         int minNumero = configuracion[0];
         int maxNumero = configuracion[1];
         int maxIntentos = configuracion[2];
-        
-        int nivelDicultad_1=1;
-        int nivelDicultad_2=2;
-        int nivelDicultad_3=3;
 
         System.out.println();
         System.out.println("Adivina el numero entre " + minNumero + " y " + maxNumero);
@@ -25,14 +24,14 @@ public class JuegoAdivinanza {
         int[] historialNumeros = new int[maxIntentos];
         String[] historialPistas = new String[maxIntentos];
         int indiceHistorial = 0;
-        
+
         while (intentosRealizados < maxIntentos && !adivinado) {
             System.out.println();
             System.out.println("Intento " + (intentosRealizados + 1) + "/" + maxIntentos + ": ");
             System.out.println("[1] Adivinar [2] Pedir Pista");
             System.out.print("Opcion: ");
-            int opcionJuego1adivinar=1;
-            int opcionJuego2pedirPista=2;
+            int opcionJuego1adivinar = 1;
+            int opcionJuego2pedirPista = 2;
             int opcionJuego = scanner.nextInt();
 
             String pistaActual = "";
@@ -53,12 +52,12 @@ public class JuegoAdivinanza {
                         pistaActual += ", ¡Muy cerca!";
                     }
                 }
-                intentosRealizados++;
+                
                 historialNumeros[indiceHistorial] = numeroUsuario;
                 historialPistas[indiceHistorial] = pistaActual;
                 indiceHistorial++;
 
-                if (opcionJuego == opcionJuego2pedirPista) {
+                 if (opcionJuego == opcionJuego2pedirPista) {
                     if (intentosRealizados >= maxIntentos - 1) {
                         System.out.println("No puedes pedir mas pistas, es tu ultimo intento.");
                         pistaActual = "Pista denegada";
@@ -81,7 +80,7 @@ public class JuegoAdivinanza {
                             indiceHistorial++;
                         }
                     }
-                    continue;
+                    
                 }
 
                 intentosRealizados++;
@@ -146,7 +145,8 @@ public class JuegoAdivinanza {
         return numeroSecreto;
     }
 
-    private static int[] elegirOpcionDificultad(int dificultad,int nivelDicultad_1,int nivelDicultad_2,int nivelDicultad_3) {
+    private static int[] elegirOpcionDificultad(int dificultad, int nivelDicultad_1, int nivelDicultad_2,
+            int nivelDicultad_3) {
 
         int minNumero = 1;
         int maxNumero = 100;
