@@ -10,6 +10,10 @@ public class JuegoAdivinanza {
         int minNumero = configuracion[0];
         int maxNumero = configuracion[1];
         int maxIntentos = configuracion[2];
+        
+        int nivelDicultad_1=1;
+        int nivelDicultad_2=2;
+        int nivelDicultad_3=3;
 
         System.out.println();
         System.out.println("Adivina el numero entre " + minNumero + " y " + maxNumero);
@@ -21,41 +25,18 @@ public class JuegoAdivinanza {
         int[] historialNumeros = new int[maxIntentos];
         String[] historialPistas = new String[maxIntentos];
         int indiceHistorial = 0;
-
+        
         while (intentosRealizados < maxIntentos && !adivinado) {
             System.out.println();
             System.out.println("Intento " + (intentosRealizados + 1) + "/" + maxIntentos + ": ");
             System.out.println("[1] Adivinar [2] Pedir Pista");
             System.out.print("Opcion: ");
+            int opcionJuego1adivinar=1;
+            int opcionJuego2pedirPista=2;
             int opcionJuego = scanner.nextInt();
 
             String pistaActual = "";
-
-            if (opcionJuego == 2) {
-                if (intentosRealizados >= maxIntentos - 1) {
-                    System.out.println("No puedes pedir mas pistas, es tu ultimo intento.");
-                    pistaActual = "Pista denegada";
-                } else {
-                    intentosRealizados++;
-                    System.out.print("PISTA: ");
-                    if (numeroSecreto % 2 == 0) {
-                        System.out.println("El numero es par.");
-                    } else {
-                        System.out.println("El numero es impar.");
-                    }
-                    if (numeroSecreto % 3 == 0) {
-                        System.out.println("El numero es multiplo de 3.");
-                    }
-                    pistaActual = "Pista solicitada";
-
-                    if (indiceHistorial < maxIntentos) {
-                        historialNumeros[indiceHistorial] = 0;
-                        historialPistas[indiceHistorial] = pistaActual;
-                        indiceHistorial++;
-                    }
-                }
-                continue;
-            } else if (opcionJuego == 1) {
+            if (opcionJuego == opcionJuego1adivinar) {
                 System.out.print("Tu numero: ");
                 int numeroUsuario = scanner.nextInt();
 
@@ -63,10 +44,42 @@ public class JuegoAdivinanza {
                     System.out.println("El numero debe estar entre " + minNumero + " y " + maxNumero);
                     pistaActual = "Fuera de rango";
 
-                    if (indiceHistorial < maxIntentos) {
-                        historialNumeros[indiceHistorial] = numeroUsuario;
-                        historialPistas[indiceHistorial] = pistaActual;
-                        indiceHistorial++;
+                } else if (numeroUsuario == numeroSecreto) {
+                    adivinado = true;
+                    pistaActual = "¡Adivinado!";
+                } else {
+                    pistaActual = numeroUsuario < numeroSecreto ? "MAYOR" : "MENOR";
+                    if (Math.abs(numeroUsuario - numeroSecreto) < 5) {
+                        pistaActual += ", ¡Muy cerca!";
+                    }
+                }
+                intentosRealizados++;
+                historialNumeros[indiceHistorial] = numeroUsuario;
+                historialPistas[indiceHistorial] = pistaActual;
+                indiceHistorial++;
+
+                if (opcionJuego == opcionJuego2pedirPista) {
+                    if (intentosRealizados >= maxIntentos - 1) {
+                        System.out.println("No puedes pedir mas pistas, es tu ultimo intento.");
+                        pistaActual = "Pista denegada";
+                    } else {
+                        intentosRealizados++;
+                        System.out.print("PISTA: ");
+                        if (numeroSecreto % 2 == 0) {
+                            System.out.println("El numero es par.");
+                        } else {
+                            System.out.println("El numero es impar.");
+                        }
+                        if (numeroSecreto % 3 == 0) {
+                            System.out.println("El numero es multiplo de 3.");
+                        }
+                        pistaActual = "Pista solicitada";
+
+                        if (indiceHistorial < maxIntentos) {
+                            historialNumeros[indiceHistorial] = 0;
+                            historialPistas[indiceHistorial] = pistaActual;
+                            indiceHistorial++;
+                        }
                     }
                     continue;
                 }
@@ -133,19 +146,19 @@ public class JuegoAdivinanza {
         return numeroSecreto;
     }
 
-    private static int[] elegirOpcionDificultad(int dificultad) {
+    private static int[] elegirOpcionDificultad(int dificultad,int nivelDicultad_1,int nivelDicultad_2,int nivelDicultad_3) {
 
         int minNumero = 1;
         int maxNumero = 100;
         int maxIntentos = 7;
 
-        if (dificultad == 1) {
+        if (dificultad == nivelDicultad_1) {
             maxNumero = 50;
             maxIntentos = 10;
-        } else if (dificultad == 2) {
+        } else if (dificultad == nivelDicultad_2) {
             maxNumero = 100;
             maxIntentos = 7;
-        } else if (dificultad == 3) {
+        } else if (dificultad == nivelDicultad_3) {
             maxNumero = 200;
             maxIntentos = 8;
         } else {
