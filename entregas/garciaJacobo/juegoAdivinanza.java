@@ -4,24 +4,12 @@ public class JuegoAdivinanza {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        int minNumero = 1;
-        int maxNumero = 100;
-        int maxIntentos = 10;
-
         int dificultad = mostrarMenuDificultad(scanner);
+        int[] configuracion = elegirOpcionDificultad(dificultad);
 
-        if (dificultad == 1) {
-            maxNumero = 50;
-            maxIntentos = 10;
-        } else if (dificultad == 2) {
-            maxNumero = 100;
-            maxIntentos = 7;
-        } else if (dificultad == 3) {
-            maxNumero = 200;
-            maxIntentos = 8;
-        } else {
-            System.out.println("Opcion no valida, usando dificultad Normal.");
-        }
+        int minNumero = configuracion[0];
+        int maxNumero = configuracion[1];
+        int maxIntentos = configuracion[2];
 
         System.out.println();
         System.out.println("Adivina el numero entre " + minNumero + " y " + maxNumero);
@@ -138,6 +126,28 @@ public class JuegoAdivinanza {
         System.out.println();
         System.out.println("Fin del juego");
         scanner.close();
+    }
+
+    private static int[] elegirOpcionDificultad(int dificultad) {
+
+        int minNumero = 1;
+        int maxNumero = 100;
+        int maxIntentos = 7;
+
+        if (dificultad == 1) {
+            maxNumero = 50;
+            maxIntentos = 10;
+        } else if (dificultad == 2) {
+            maxNumero = 100;
+            maxIntentos = 7;
+        } else if (dificultad == 3) {
+            maxNumero = 200;
+            maxIntentos = 8;
+        } else {
+            System.out.println("Opcion no valida, se usara dificultad Normal.");
+        }
+
+        return new int[] { minNumero, maxNumero, maxIntentos };
     }
 
     private static int mostrarMenuDificultad(Scanner scanner) {
